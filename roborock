@@ -2,8 +2,6 @@
 
 rockrobo\cuiyi 
 
-email pswd Xss123
-
 ubuntu18.04下ROS安装 
 	ROS，rqt，rviz，机器人通用库，2D / 3D模拟器，导航和2D / 3D感知
 	roscore
