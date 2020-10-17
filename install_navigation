@@ -1,0 +1,5 @@
+#!/bin/bash
+
+apt install -y libsdl-image1.2-gst
+apt install -y ros-melodic-tf2-sensor-msgs ros-melodic-move-base-msgs ros-melodic-costmap-converter ros-melodic-libg2o
+apt install -y libgstreamermm-1.0-dev
