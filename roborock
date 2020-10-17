@@ -1,0 +1,173 @@
+\\192.168.111.49\Shares\Public\Tool
+
+rockrobo\cuiyi 
+
+email pswd Xss123
+
+ubuntu18.04下ROS安装 
+	ROS，rqt，rviz，机器人通用库，2D / 3D模拟器，导航和2D / 3D感知
+	roscore
+	rosrun turtlesim turtlesim_node
+	rosrun turtlesim turtle_teleop_key
+	apt-get install ros-melodic-ros-tutorials
+
+	sudo rosdep init
+	rosdep update
+
+	rospack find roscpp
+	roscd roscpp
+	echo $ROS_PACKAGE_PATH
+	roscd log
+rospack = ros + pack(age)
+roscd = ros + cd
+rosls = ros + ls
+apt-get install ros-melodic-ros-tutorials
+
+图概念概述
+Nodes:节点,一个节点即为一个可执行文件，它可以通过ROS与其它节点进行通信。
+
+Messages:消息，消息是一种ROS数据类型，用于订阅或发布到一个话题。
+
+Topics:话题,节点可以发布消息到话题，也可以订阅话题以接收消息。
+
+Master:节点管理器，ROS名称服务 (比如帮助节点找到彼此)。
+
+rosout: ROS中相当于stdout/stderr。
+
+roscore: 主机+ rosout + 参数服务器 (参数服务器会在后面介绍)。
+
+apt-get install ros-melodic-rqt     apt-get install ros-melodic-rqt-common-plugins
+
+roscore rosnode rosrun
+
+rosnode list 查看打开节点
+
+rosnode info rosout 查看具体节点信息
+
+rostopic list    显示出有关所发布和订阅的话题及其类型的详细信息
+
+	 -v, --verbose         list full details about each topic
+  	 -p                    list only publishers
+ 	 -s                    list only subscribers
+
+	Published topics:发布的话题 Subscribed topics:订阅的话题  发布器(turtle_teleop_key)和订阅器(turtulesim_node)
+
+rostopic echo /turtle1/cmd_vel    查看turtle_teleop_key节点在/turtle1/cmd_vel话题上发布的数据
+
+rostopic type /turtle1/cmd_vel 查看在此topic上发布的消息的类型
+
+rosmsg show geometry_msgs/Twist 查看消息类型
+
+rosrun rqt_graph rqt_graph 
+
+
+节点提供服务
+
+rosservice list 
+rosservice type
+rosservice call
+
+gedit /etc/hosts配天机器人
+
+rosparam list 参数服务器 set get load delete  dump list
+
+rqt_console和rqt_logger_level
+Fatal
+Error
+Warn
+Info
+Debug
+
+roslaunch beginner_tutorials turtlemimic.launch
+
+rospack = ros+pack(age) : provides information related to ROS packages
+rosstack = ros+stack : provides information related to ROS stacks
+roscd = ros+cd : changes directory to a ROS package or stack
+rosls = ros+ls : lists files in a ROS package
+roscp = ros+cp : copies files from/to a ROS package
+rosmsg = ros+msg : provides information related to ROS message definitions
+rossrv = ros+srv : provides information related to ROS service definitions
+rosmake = ros+make : makes (compiles) a ROS package
+
+SIGINT 被触发 (Ctrl-C)
+被另一同名节点踢出 ROS 网络
+ros::shutdown() 被程序的另一部分调用
+节点中的所有 ros::NodeHandles 都已经被销毁
+
+git clone 项目地址  拉项目
+git pull    拉代码
+git push  提交到仓库
+git init指令初始化一个git仓库
+git add .添加文件
+git commit -m "注释"提交至仓库。
+git remote add origin https://git.oschina.net/你的用户名/项目名.
+git，git push origin master即可完成推送
+git checkout master   切换到master分支 
+
+
+apt-cache search charts*|grep chart
+
+cuiyi@cuiyi-roborock:~/build$ qmake /opt/rr/RoboScrub_QT/
+cuiyi@cuiyi-roborock:~/build$ make
+echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+roslaunch launcher_state_machine sim_scrubber_launcher.launch  (nav)
+
+git branch -r
+git checkout jetson
+
+root@cuiyi-roborock:/opt/rr/install_dir# rosrun navigator navigator_teleop_key
+root@cuiyi-roborock:/home/roborock/disk1# ln -s /opt/rr/RoboScrub_Nav/ RoboScrub_Nav
+
+
+     Qt 5.15 >Qt Quick >QML Advanced Tutorial
+     Qt 5.15 >Qt Examples And Tutorials  
+
+抽象主题（Subject）：该角色是一个抽象类或接口，定义了增加、删除、通知观察者对象的方法。
+具体主题（ConcreteSubject）：该角色继承或实现了抽象主题，定义了一个集合存入注册过的具体观察者对象，	在  具体主题的内部状态发生改变时，给所有注册过的观察者发送通知。
+抽象观察者（Observer）：该角色是具体观察者的抽象类，定义了一个更新方法。
+具体观察者（ConcrereObserver）：该角色是具体的观察者对象，在得到具体主题更改通知时更新自身的状态。
+
+mapview.h
+rrqt
+class MapLineItem:public QGraphicsItem
+class MapPointItem:public QGraphicsItem
+class RectItemTransform:public QObject,public QGraphicsItem 
+class VirtualWallItem:public QGraphicsItem
+class MapView:public QGraphicsView **
+
+bgwidget.h
+class BGWidget:public QWidget
+
+datamanage.h
+rrqt
+class QInputWidget:public QWidget
+class DataManageWidget:public QWidget **
+
+datasource.h
+struct IdValue IdValue, struct Path Path, struct Area Area, struct Locate Locate, 
+struct MapElement MapElement,
+class LinkMap
+class DataSourceSubscriber
+class DataSource **
+
+mapwidget.h
+rrqt
+class MapWidget:public QWidget,public DataSourceSubscriber
+
+twolist.h
+class TwoListSelection : public QWidget **
+
+waitwidget.h
+class WaitWidget:public QWidget
+
+
+
+
+
+
+
+
+
+
+
