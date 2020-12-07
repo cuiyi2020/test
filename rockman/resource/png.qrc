@@ -1,0 +1,56 @@
+<RCC>
+    <qresource prefix="/">
+        <file>预计清扫时间.png</file>
+        <file>形状 545 拷贝 3.png</file>
+        <file>形状 875 拷贝.png</file>
+        <file>形状 876 拷贝 3.png</file>
+        <file>形状 876 拷贝 3(1).png</file>
+        <file>形状 914 拷贝.png</file>
+        <file>椭圆 771 拷贝 2.png</file>
+        <file>椭圆 771 拷贝 6.png</file>
+        <file>椭圆 771 拷贝 10.png</file>
+        <file>椭圆 771 拷贝 10(1).png</file>
+        <file>矢量智能对象.png</file>
+        <file>矢量智能对象(1).png</file>
+        <file>矢量智能对象(2).png</file>
+        <file>矢量智能对象(3).png</file>
+        <file>矢量智能对象(4).png</file>
+        <file>矢量智能对象(5).png</file>
+        <file>矢量智能对象(6).png</file>
+        <file>矢量智能对象(7).png</file>
+        <file>返回箭头.png</file>
+        <file>矢量智能对象 拷贝 10.png</file>
+        <file>矩形 532 拷贝 4.png</file>
+        <file>矩形 532 拷贝 4(1).png</file>
+        <file>组 65.png</file>
+        <file>组 66.png</file>
+        <file>组 76 拷贝.png</file>
+        <file>组 76 拷贝 2.png</file>
+        <file>定位成功.png</file>
+        <file>背景.png</file>
+        <file>矩形 961 拷贝 3.png</file>
+        <file>状态条.png</file>
+        <file>警告.png</file>
+        <file>任务报告.png</file>
+        <file>关机.png</file>
+        <file>历史消息.png</file>
+        <file>数据管理.png</file>
+        <file>机器人设置.png</file>
+        <file>注销.png</file>
+        <file>清洗配置.png</file>
+        <file>用户管理.png</file>
+        <file>系统设置.png</file>
+        <file>设备状态.png</file>
+        <file>关闭.png</file>
+        <file>任务高亮边框.png</file>
+        <file>定位失败.png</file>
+        <file>开始定位.png</file>
+        <file>png.qrc</file>
+        <file>定时按钮.png</file>
+        <file>恢复暂停.png</file>
+        <file>结束按钮.png</file>
+        <file>升降按钮.png</file>
+        <file>清扫配置高亮.png</file>
+        <file>状态栏消息图标.png</file>
+    </qresource>
+</RCC>

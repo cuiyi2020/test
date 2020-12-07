@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>header.qml</file>
+        <file>taskset.qml</file>
+        <file>maplist.qml</file>
+        <file>sidebar.qml</file>
+        <file>planlist.qml</file>
+        <file>clean_model.qml</file>
+        <file>cleanstate.qml</file>
+        <file>cpbar.qml</file>
+        <file>errorlist.qml</file>
+        <file>manualbtn6.qml</file>
+        <file>groupbtn.qml</file>
+        <file>manual_brush_gbtn.qml</file>
+        <file>manual_direction_gbtn.qml</file>
+        <file>manual_watersuck_gbtn.qml</file>
+        <file>ccbar.qml</file>
+        <file>brushbtn.qml</file>
+        <file>scrubbtn.qml</file>
+        <file>rock.qml</file>
+        <file>robo.qml</file>
+        <file>QmlBusyIndicator.qml</file>
+    </qresource>
+</RCC>
