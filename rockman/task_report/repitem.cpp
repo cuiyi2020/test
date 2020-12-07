@@ -34,7 +34,7 @@ void Repitem::init(){
     set_text(nullptr);
 }
 
-void Repitem::set_text(Repitemtext *rhs){
+void Repitem::set_text(Repitemtext *){
 //    if (!rhs)
 //        return;
 //    m_text->place = rhs->place;

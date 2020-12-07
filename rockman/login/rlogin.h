@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QComboBox>
 
 class QPushButton;
 class QLabel;
@@ -25,6 +26,7 @@ private:
     QLabel *m_pwderror;
     QPushButton *m_unamelist;
     QPushButton *m_login;
+    QComboBox *m_cmb;
 };
 
 
