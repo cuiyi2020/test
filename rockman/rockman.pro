@@ -48,7 +48,8 @@ HEADERS += \
     login/rlogin.h \
     login/rxml.h \
     practice.h \
-    login/sha.h
+    login/sha.h \
+    login/accountlist.h
 
 FORMS += \
         widget.ui

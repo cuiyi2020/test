@@ -1,23 +1,28 @@
 #include "rlogin.h"
+#include "rxml.h"
 
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QMessageBox>
+#include <QDebug>
 
-Rlogin::Rlogin(){
+Rlogin::Rlogin(QWidget *parent) : QWidget(parent){
+    init();
     create_ui();
     create_connections();
-    init();
+}
+
+Rlogin::~Rlogin(){
+    if (m_xml){
+        delete m_xml;
+    }
 }
 
 void Rlogin::init(){
-    if (!m_cmb)
-        return;
+    m_xml = new Rxml();
+    m_unamelist = m_xml->get_unamelist();
     //m_cmb->addItem(QString::asprintf("Item %d",i));
-    m_cmb->addItem("aa");
-    m_cmb->addItem("bb");
-    m_cmb->addItem("cc");
-
 }
 
 void Rlogin::create_ui(){
@@ -35,23 +40,17 @@ void Rlogin::create_ui(){
     account_lb->setStyleSheet("color:white");//文本颜色
     //account_lb->setStyleSheet("background-color:green");//背景色
 
-    m_uname = new QLineEdit(m_wd);
-    m_uname->setFont(input_ft);
-    m_uname->move(273, 292-5);
-    m_uname->setStyleSheet("color:white");//文本颜色
-    m_uname->setStyleSheet("background-color:green");//背景色
+    m_uname_le = new QLineEdit(m_wd);
+    m_uname_le->setFont(input_ft);
+    m_uname_le->move(273, 292-5);
+    m_uname_le->setStyleSheet("color:white");//文本颜色
+    m_uname_le->setStyleSheet("background-color:green");//背景色
+    m_uname_le->setText("xuzuzu");
 
-    m_unamelist = new QPushButton(m_wd);
-    m_unamelist->resize(20, 12);
-    m_unamelist->move(516, 291);
-    m_unamelist->setStyleSheet("QPushButton{border-image: url(:/返回箭头.png)}");
-
-    m_cmb = new QComboBox(m_wd);
-    m_cmb->move(256, 317);
-    m_cmb->resize(280, 290);
-    m_cmb->setStyleSheet("color:white");//文本颜色
-    m_cmb->setWindowFlags(Qt::Widget | Qt::FramelessWindowHint | Qt::WindowSystemMenuHint | Qt::WindowStaysOnTopHint);
-    m_cmb->hide();
+    m_unamebtn = new QPushButton(m_wd);
+    m_unamebtn->resize(20, 12);
+    m_unamebtn->move(516, 291);
+    m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/返回箭头.png)}");
 
     QLabel *pwd_lb = new QLabel(m_wd);
     pwd_lb->setText("密码");
@@ -59,17 +58,18 @@ void Rlogin::create_ui(){
     pwd_lb->move(201, 392);
     pwd_lb->setStyleSheet("color:white");
 
-    m_pwd = new QLineEdit(m_wd);
-    m_pwd->setFont(input_ft);
-    m_pwd->move(273, 400-5);
-    m_pwd->setStyleSheet("color:white");
-    m_pwd->setStyleSheet("background-color:green");
+    m_pwd_le = new QLineEdit(m_wd);
+    m_pwd_le->setFont(input_ft);
+    m_pwd_le->move(273, 400-5);
+    m_pwd_le->setStyleSheet("color:white");
+    m_pwd_le->setStyleSheet("background-color:green");
 
     m_pwderror = new QLabel(m_wd);
     m_pwderror->setText("密码错误");
     m_pwderror->setFont(input_ft);
     m_pwderror->move(459+10, 396);
     m_pwderror->setStyleSheet("color:red");
+    m_pwderror->hide();
 
     m_login = new QPushButton(m_wd);
     m_login->resize(390, 78);
@@ -77,15 +77,54 @@ void Rlogin::create_ui(){
     m_login->move(170, 508);
     m_login->setStyleSheet("color:white");
     m_login->setFont(title_ft);
+
+    m_list = new QQuickWidget(this);
+    m_list->setAttribute(Qt::WA_AlwaysStackOnTop);
+    m_list->setClearColor(QColor(Qt::transparent));
+    m_list->rootContext()->setContextProperty("accountMsg", this);
+    m_list->rootContext()->setContextProperty("accountModel", QVariant::fromValue(m_unamelist));
+    m_list->setSource(QUrl("qrc:/account.qml"));
+    m_list->move(256, 317);
+    m_list->hide();
+    m_list->raise();
 }
 
 void Rlogin::create_connections(){
-    connect(m_unamelist, &QPushButton::clicked, [&](){
-        if (m_cmb->isVisible()){
-            m_cmb->close();
+    //connect(m_login, SIGNAL(clicked()), this, SLOT(slot_matching()));
+    connect(m_login, &QPushButton::clicked, [&](){
+        this->slot_matching();
+    });
+    connect(m_unamebtn, &QPushButton::clicked, [&](){
+        if (m_list->isVisible()){
+            m_list->hide();
         }
         else{
-            m_cmb->show();
+            m_list->show();
         }
     });
 }
+
+void Rlogin::slot_matching(){
+    m_uname = m_uname_le->text();
+    m_pwd = m_pwd_le->text();
+    qDebug() << m_uname << m_pwd;
+    bool ret = m_xml->is_ok(m_uname, m_pwd);
+    if (!ret){
+        if (!m_pwderror->isVisible())
+            m_pwderror->show();
+    }
+    else{
+        if (m_pwderror->isVisible())
+            m_pwderror->hide();
+    }
+//    QString res = ret ? "成功" : "失败";
+//    QMessageBox::warning(NULL, "账号密码校验:", res, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+}
+
+void Rlogin::set_uname(int index){
+    if(index >= m_unamelist.size())
+        return;
+    m_uname_le->setText(m_unamelist.at(index));
+    m_list->hide();
+}
+

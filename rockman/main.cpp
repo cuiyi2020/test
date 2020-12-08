@@ -21,6 +21,7 @@ void test_func();
 void test_func1();
 void qml_main();
 void test_login();
+void test_account();
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +37,10 @@ int main(int argc, char *argv[])
     return a.exec();
 }
 
+void test_account(){
+
+}
+
 void test_login(){
     Rlogin *lg = new Rlogin;
     //lg->resize(1280, 800);
@@ -45,7 +50,7 @@ void test_login(){
 void qml_main()
 {
     QQuickWidget *view = new QQuickWidget();
-    view->setSource(QUrl("qrc:/rock.qml"));
+    view->setSource(QUrl("qrc:/account.qml"));
     view->show();
     qDebug()<<"hello";
 }
@@ -78,9 +83,9 @@ void test_xml(){
     res = rx.is_ok("adm", "123");
     print("After remove adm:", res);
 
-//    rx.add_user("adm", "123");
-//    res = rx.is_ok("adm", "123");
-//    print("After add adm:", res);
+    rx.add_user("adm", "123");
+    res = rx.is_ok("adm", "123");
+    print("After add adm:", res);
 }
 
 void test_func(){

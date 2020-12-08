@@ -2,13 +2,17 @@
 
 #include <QDomDocument>
 #include <QMap>
+#include <QVector>
 
 class Rxml{
 public:
     Rxml();
+    ~Rxml(){}
     bool add_user(const QString uname, const QString pwd);
     void remove_user(const QString uname);
-    bool is_ok(QString uname, QString pwd);
+    bool is_ok(const QString &uname, const QString &pwd);
+    QVector<QString> get_unames();
+    QStringList get_unamelist();
 
 private:
     typedef QMap<QString, QString> Loginfo;
@@ -25,7 +29,11 @@ private:
     QString trans(QString rhs);
 
 private:
+    QString m_fullname;
+    QString m_filename;
     Loginfo m_login_data;
     Loginfo m_in_data;
     Loginfo m_out_data;
+    QVector<QString> m_unames;
+    QStringList m_unamelist;
 };

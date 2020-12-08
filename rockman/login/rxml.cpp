@@ -14,15 +14,32 @@ Rxml::Rxml(){
 }
 
 void Rxml::init(){
+    m_filename = "rr_login";
     m_login_data.insert("admin", "roborock");
-    m_login_data.insert("yangjian", "flmay");
-    m_login_data.insert("cuiyi", "123");
-    m_login_data.insert("traveler", "ganger");
+    m_login_data.insert("yangj", "123");
+    m_login_data.insert("jyh", "12345");
+    m_login_data.insert("longyue", "123");
+    m_login_data.insert("xuzuzu", "12345");
+    m_login_data.insert("jiangtianhao", "12345");
+    m_login_data.insert("浩哥", "12345");
+    m_login_data.insert("zac", "1");
+    for (auto iter=m_login_data.begin(); iter!=m_login_data.end(); ++iter){
+        m_unames.push_back(iter.key());
+        m_unamelist.push_back(iter.key());
+    }
+}
+
+QVector<QString> Rxml::get_unames(){
+    return m_unames;
+}
+
+QStringList Rxml::get_unamelist(){
+    return m_unamelist;
 }
 
 void Rxml::doit(){
     this->change(m_in_data, m_login_data);
-    this->write("rr_login", m_in_data);
+    this->write(m_filename, m_in_data);
     this->read();
     //this->show();
 }
@@ -34,6 +51,7 @@ bool Rxml::add_user(const QString uname, const QString pwd){
         return ret;
     }
     m_login_data.insert(uname, pwd);
+    m_unames.push_back(uname);
     doit();
     return true;
 }
@@ -51,7 +69,10 @@ void Rxml::remove_user(const QString uname){
     if (ite != m_in_data.end()){
         m_in_data.erase(ite);
     }
-    this->write("rr_login", m_in_data);
+    int index = m_unames.indexOf(uname);
+    if (index >= 0)
+        m_unames.erase(m_unames.begin()+index);
+    this->write(m_filename, m_in_data);
 }
 
 void Rxml::show(){
@@ -74,7 +95,7 @@ void Rxml::change(Loginfo &lhs, const Loginfo &rhs){
     }
 }
 
-bool Rxml::is_ok(QString uname, QString pwd){
+bool Rxml::is_ok(const QString &uname, const QString &pwd){
     bool ret = false;
     auto iter = m_out_data.find(uname);
     if (iter == m_out_data.end())
@@ -110,10 +131,11 @@ void Rxml::write(const QString &filename, const Loginfo &rhs){
 void Rxml::save(const QString &filename, QDomDocument &doc){
     QDir m_dir(xml_dir);
     if(!m_dir.exists()){
-        QString cmd = "sudo mkdir " + xml_dir;
+        QString cmd = "mkdir " + xml_dir;
         system(cmd.toStdString().c_str());
     }
-    QFile file(m_dir.absolutePath() + "/" + filename);
+    m_fullname = m_dir.absolutePath() + "/" + filename;
+    QFile file(m_fullname);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)){
         return;
     }
@@ -126,7 +148,7 @@ void Rxml::save(const QString &filename, QDomDocument &doc){
 void Rxml::remove(const QString &filename){
     QFile file(filename);
     if(file.exists()){
-        QString cmd = "sudo rm " + filename;
+        QString cmd = "rm " + filename;
         system(cmd.toStdString().c_str());
     }
 }
@@ -144,7 +166,7 @@ void Rxml::read(const QString &filename){
 }
 
 void Rxml::read(){
-    QFile file(xml_file);
+    QFile file(m_fullname);
     if(file.open(QIODevice::ReadOnly)){
         QDomDocument doc;
         if(doc.setContent(&file)){
@@ -161,6 +183,7 @@ void Rxml::listdom(QDomElement &root){
     }
     QDomNodeList userlist = root.childNodes();
     QString uname, pwd;
+    m_out_data.clear();
     for (int i=0; i<userlist.count(); ++i){
         QDomNode user = userlist.at(i);
         QDomNodeList record = user.childNodes();

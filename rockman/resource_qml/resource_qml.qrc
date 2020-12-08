@@ -20,5 +20,6 @@
         <file>rock.qml</file>
         <file>robo.qml</file>
         <file>QmlBusyIndicator.qml</file>
+        <file>account.qml</file>
     </qresource>
 </RCC>
