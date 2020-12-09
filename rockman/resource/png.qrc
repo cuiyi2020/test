@@ -52,5 +52,8 @@
         <file>升降按钮.png</file>
         <file>清扫配置高亮.png</file>
         <file>状态栏消息图标.png</file>
+        <file>login-btn-down.png</file>
+        <file>login-btn-login.png</file>
+        <file>login-btn-up.png</file>
     </qresource>
 </RCC>

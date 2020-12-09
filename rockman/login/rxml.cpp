@@ -15,13 +15,12 @@ Rxml::Rxml(){
 
 void Rxml::init(){
     m_filename = "rr_login";
-    m_login_data.insert("admin", "roborock");
-    m_login_data.insert("yangj", "123");
-    m_login_data.insert("jyh", "12345");
-    m_login_data.insert("longyue", "123");
-    m_login_data.insert("xuzuzu", "12345");
-    m_login_data.insert("jiangtianhao", "12345");
-    m_login_data.insert("浩哥", "12345");
+    m_login_data.insert("admin", "123");
+    m_login_data.insert("yangj", "321");
+    m_login_data.insert("longyue", "321");
+    m_login_data.insert("xuzuzu", "2020");
+    m_login_data.insert("tianhao", "2020");
+    m_login_data.insert("浩哥", "2");
     m_login_data.insert("zac", "1");
     for (auto iter=m_login_data.begin(); iter!=m_login_data.end(); ++iter){
         m_unames.push_back(iter.key());

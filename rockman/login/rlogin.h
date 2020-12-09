@@ -18,8 +18,9 @@ public:
     void init();
     Q_INVOKABLE void set_uname(int index);
 
-public slots:
+private slots:
     void slot_matching();
+    void slot_close();
 
 private:
     void create_ui();
@@ -33,6 +34,8 @@ private:
     QLabel *m_pwderror;
     QPushButton *m_unamebtn;
     QPushButton *m_login;
+    QPushButton *m_closed;
+    QPushButton *m_close;
     QQuickWidget *m_list;
     QString m_uname;
     QString m_pwd;

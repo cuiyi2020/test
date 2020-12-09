@@ -32,25 +32,30 @@ void Rlogin::create_ui(){
 
     QFont title_ft("黑体", 15);
     QFont input_ft("黑体", 13);
+    QFont close_ft("黑体", 16);
 
     QLabel *account_lb = new QLabel(m_wd);
     account_lb->setText("账号");
     account_lb->setFont(title_ft);
     account_lb->move(201, 284);
-    account_lb->setStyleSheet("color:white");//文本颜色
-    //account_lb->setStyleSheet("background-color:green");//背景色
+    account_lb->setStyleSheet("color:white");
+    //account_lb->setStyleSheet("background-color:transparent");//背景色
 
     m_uname_le = new QLineEdit(m_wd);
     m_uname_le->setFont(input_ft);
-    m_uname_le->move(273, 292-5);
-    m_uname_le->setStyleSheet("color:white");//文本颜色
-    m_uname_le->setStyleSheet("background-color:green");//背景色
+    m_uname_le->move(273, 292-3);
+    m_uname_le->setStyleSheet("color:white; border:no");
     m_uname_le->setText("xuzuzu");
 
     m_unamebtn = new QPushButton(m_wd);
-    m_unamebtn->resize(20, 12);
-    m_unamebtn->move(516, 291);
-    m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/返回箭头.png)}");
+    m_unamebtn->resize(22, 12);
+    m_unamebtn->move(530, 291);
+    m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-down.png)}");
+
+    QLabel *up_lb = new QLabel(m_wd);
+    up_lb->resize(390, 1);
+    up_lb->move(170, 342);
+    up_lb->setStyleSheet("background-color:white");
 
     QLabel *pwd_lb = new QLabel(m_wd);
     pwd_lb->setText("密码");
@@ -60,9 +65,8 @@ void Rlogin::create_ui(){
 
     m_pwd_le = new QLineEdit(m_wd);
     m_pwd_le->setFont(input_ft);
-    m_pwd_le->move(273, 400-5);
-    m_pwd_le->setStyleSheet("color:white");
-    m_pwd_le->setStyleSheet("background-color:green");
+    m_pwd_le->move(273, 400-3);
+    m_pwd_le->setStyleSheet("color:white; border:no");
 
     m_pwderror = new QLabel(m_wd);
     m_pwderror->setText("密码错误");
@@ -71,12 +75,28 @@ void Rlogin::create_ui(){
     m_pwderror->setStyleSheet("color:red");
     m_pwderror->hide();
 
+    QLabel *down_lb = new QLabel(m_wd);
+    down_lb->resize(390, 1);
+    down_lb->move(170, 455);
+    down_lb->setStyleSheet("background-color:white");
+
     m_login = new QPushButton(m_wd);
     m_login->resize(390, 78);
-    m_login->setText("登录");
     m_login->move(170, 508);
-    m_login->setStyleSheet("color:white");
-    m_login->setFont(title_ft);
+    m_login->setStyleSheet("QPushButton{border-image: url(:/login-btn-login.png)}");
+
+
+    m_closed = new QPushButton(m_wd);
+    m_closed->resize(29, 29);
+    m_closed->move(321, 640);
+    m_closed->setStyleSheet("QPushButton{border-image: url(:/关机.png)}");
+
+    m_close = new QPushButton(m_wd);
+    m_close->resize(47, 22);
+    m_close->setText("关机");
+    m_close->move(360, 644);
+    m_close->setStyleSheet("color:white; border:no");
+    m_close->setFont(close_ft);
 
     m_list = new QQuickWidget(this);
     m_list->setAttribute(Qt::WA_AlwaysStackOnTop);
@@ -90,15 +110,16 @@ void Rlogin::create_ui(){
 }
 
 void Rlogin::create_connections(){
-    //connect(m_login, SIGNAL(clicked()), this, SLOT(slot_matching()));
-    connect(m_login, &QPushButton::clicked, [&](){
-        this->slot_matching();
-    });
+    connect(m_login, SIGNAL(clicked()), this, SLOT(slot_matching()));
+    connect(m_closed, SIGNAL(clicked()), this, SLOT(slot_close()));
+    connect(m_close, SIGNAL(clicked()), this, SLOT(slot_close()));
     connect(m_unamebtn, &QPushButton::clicked, [&](){
         if (m_list->isVisible()){
+            m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-down.png)}");
             m_list->hide();
         }
         else{
+            m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-up.png)}");
             m_list->show();
         }
     });
@@ -107,7 +128,7 @@ void Rlogin::create_connections(){
 void Rlogin::slot_matching(){
     m_uname = m_uname_le->text();
     m_pwd = m_pwd_le->text();
-    qDebug() << m_uname << m_pwd;
+    //qDebug() << m_uname << m_pwd;
     bool ret = m_xml->is_ok(m_uname, m_pwd);
     if (!ret){
         if (!m_pwderror->isVisible())
@@ -124,7 +145,12 @@ void Rlogin::slot_matching(){
 void Rlogin::set_uname(int index){
     if(index >= m_unamelist.size())
         return;
-    m_uname_le->setText(m_unamelist.at(index));
+    m_uname_le->setText(m_unamelist.at(index)); 
+    m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-down.png)}");
     m_list->hide();
+}
+
+void Rlogin::slot_close(){
+    //qDebug() << "Shut down.";
 }
 

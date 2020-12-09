@@ -34,7 +34,7 @@ void Rwidget::create_ui(){
     m_list->rootContext()->setContextProperty("errorModel", {});
     m_list->rootContext()->setContextProperty("errorMsg", this);
     m_list->setSource(QUrl("qrc:/errorlist.qml"));
-    m_list->move(154,200);
+    m_list->move(154, 200);
     m_list->hide();
     m_list->raise();
 
