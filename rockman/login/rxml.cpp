@@ -23,13 +23,8 @@ void Rxml::init(){
     m_login_data.insert("浩哥", "2");
     m_login_data.insert("zac", "1");
     for (auto iter=m_login_data.begin(); iter!=m_login_data.end(); ++iter){
-        m_unames.push_back(iter.key());
         m_unamelist.push_back(iter.key());
     }
-}
-
-QVector<QString> Rxml::get_unames(){
-    return m_unames;
 }
 
 QStringList Rxml::get_unamelist(){
@@ -37,6 +32,7 @@ QStringList Rxml::get_unamelist(){
 }
 
 void Rxml::doit(){
+    m_in_data.clear();
     this->change(m_in_data, m_login_data);
     this->write(m_filename, m_in_data);
     this->read();
@@ -50,27 +46,29 @@ bool Rxml::add_user(const QString uname, const QString pwd){
         return ret;
     }
     m_login_data.insert(uname, pwd);
-    m_unames.push_back(uname);
+    m_unamelist.push_back(uname);
     doit();
     return true;
 }
 
-void Rxml::remove_user(const QString uname){
+void Rxml::remove_user(const QString name){
+    auto it = m_login_data.find(name);
+    if (it != m_login_data.end()){
+        m_login_data.erase(it);
+    }
+    int index = m_unamelist.indexOf(name);
+    if (index >= 0 && index < m_unamelist.size())
+        m_unamelist.erase(m_unamelist.begin()+index);
+
+    QString uname = trans(name);
     auto iter = m_out_data.find(uname);
     if(iter != m_out_data.end()){
         m_out_data.erase(iter);
     }
-    auto it = m_login_data.find(uname);
-    if (it != m_login_data.end()){
-        m_login_data.erase(it);
-    }
     auto ite = m_in_data.find(uname);
     if (ite != m_in_data.end()){
         m_in_data.erase(ite);
-    }
-    int index = m_unames.indexOf(uname);
-    if (index >= 0)
-        m_unames.erase(m_unames.begin()+index);
+    } 
     this->write(m_filename, m_in_data);
 }
 
@@ -88,15 +86,14 @@ QString Rxml::trans(QString rhs){
 }
 
 void Rxml::change(Loginfo &lhs, const Loginfo &rhs){
-    m_in_data.clear();
     for (auto iter=rhs.begin(); iter!=rhs.end(); ++iter){
-        lhs.insert(iter.key(), trans(iter.value()));
+        lhs.insert(trans(iter.key()), trans(iter.value()));
     }
 }
 
 bool Rxml::is_ok(const QString &uname, const QString &pwd){
     bool ret = false;
-    auto iter = m_out_data.find(uname);
+    auto iter = m_out_data.find(trans(uname));
     if (iter == m_out_data.end())
         return ret;
     if (iter.value() == trans(pwd)){

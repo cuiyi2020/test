@@ -4,6 +4,7 @@
 #include "practice.h"
 #include "login/sha.h"
 #include "login/rlogin.h"
+#include "autotask/rautoprogress.h"
 
 #include <QApplication>
 #include <string>
@@ -21,7 +22,7 @@ void test_func();
 void test_func1();
 void qml_main();
 void test_login();
-void test_account();
+void test_auto();
 
 int main(int argc, char *argv[])
 {
@@ -33,11 +34,13 @@ int main(int argc, char *argv[])
     //test_xml();
     //test_func1();
     //qml_main();
-    test_login();
+    //test_login();
+    //Rautoprogress::widget_test();
+    Rautoprogress::test_autoprogress();
     return a.exec();
 }
 
-void test_account(){
+void test_auto(){
 
 }
 

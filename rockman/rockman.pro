@@ -35,7 +35,12 @@ SOURCES += \
     task_report/dataobject.cpp \
     login/rlogin.cpp \
     login/rxml.cpp \
-    login/sha.cpp
+    login/sha.cpp \
+    autotask/mscrollarea.cpp \
+    autotask/rautodetail.cpp \
+    utils/rtimer.cpp \
+    utils/rwait.cpp \
+    autotask/rautoprogress.cpp
 
 HEADERS += \
         widget.h \
@@ -49,7 +54,12 @@ HEADERS += \
     login/rxml.h \
     practice.h \
     login/sha.h \
-    login/accountlist.h
+    login/accountlist.h \
+    autotask/mscrollarea.h \
+    autotask/rautodetail.h \
+    utils/rtimer.h \
+    utils/rwait.h \
+    autotask/rautoprogress.h
 
 FORMS += \
         widget.ui

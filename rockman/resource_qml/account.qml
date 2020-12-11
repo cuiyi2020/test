@@ -44,7 +44,7 @@ Rectangle {
                     anchors.fill: parent
                     onClicked: {
                         accountMsg.set_uname(index);
-                        console.log(index)
+                        //console.log(index)
                     }
                 }
                Rectangle{

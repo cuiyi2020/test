@@ -50,7 +50,7 @@ void Rlogin::create_ui(){
     m_unamebtn = new QPushButton(m_wd);
     m_unamebtn->resize(22, 12);
     m_unamebtn->move(530, 291);
-    m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-down.png)}");
+    m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-down.png)}");///
 
     QLabel *up_lb = new QLabel(m_wd);
     up_lb->resize(390, 1);
@@ -83,7 +83,7 @@ void Rlogin::create_ui(){
     m_login = new QPushButton(m_wd);
     m_login->resize(390, 78);
     m_login->move(170, 508);
-    m_login->setStyleSheet("QPushButton{border-image: url(:/login-btn-login.png)}");
+    m_login->setStyleSheet("QPushButton{border-image: url(:/login-btn-login.png)}");///
 
 
     m_closed = new QPushButton(m_wd);
@@ -119,7 +119,7 @@ void Rlogin::create_connections(){
             m_list->hide();
         }
         else{
-            m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-up.png)}");
+            m_unamebtn->setStyleSheet("QPushButton{border-image: url(:/login-btn-up.png)}");///
             m_list->show();
         }
     });

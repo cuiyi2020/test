@@ -9,9 +9,8 @@ public:
     Rxml();
     ~Rxml(){}
     bool add_user(const QString uname, const QString pwd);
-    void remove_user(const QString uname);
+    void remove_user(const QString name);
     bool is_ok(const QString &uname, const QString &pwd);
-    QVector<QString> get_unames();
     QStringList get_unamelist();
 
 private:
@@ -34,6 +33,5 @@ private:
     Loginfo m_login_data;
     Loginfo m_in_data;
     Loginfo m_out_data;
-    QVector<QString> m_unames;
     QStringList m_unamelist;
 };

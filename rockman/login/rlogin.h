@@ -15,7 +15,7 @@ class Rlogin : public QWidget{
 public:
     explicit Rlogin(QWidget *parent = 0);
     ~Rlogin();
-    void init();
+
     Q_INVOKABLE void set_uname(int index);
 
 private slots:
@@ -23,6 +23,7 @@ private slots:
     void slot_close();
 
 private:
+    void init();
     void create_ui();
     void create_connections();
 
