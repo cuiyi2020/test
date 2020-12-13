@@ -55,5 +55,7 @@
         <file>login-btn-down.png</file>
         <file>login-btn-login.png</file>
         <file>login-btn-up.png</file>
+        <file>auto-btn-done.png</file>
+        <file>auto-btn-stop.png</file>
     </qresource>
 </RCC>

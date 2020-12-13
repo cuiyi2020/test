@@ -1,5 +1,6 @@
 #pragma once
 
+#include "mscrollarea.h"
 #include <QWidget>
 #include <QLabel>
 #include <QScroller>
@@ -11,11 +12,49 @@
 #include <QDateTime>
 #include <QSignalMapper>
 #include <QPushButton>
-#include "mscrollarea.h"
+#include <vector>
 
-#define INCREASE_NUM 5;
-#define START_INDEX 0;
-#define INIT_SELECT_STATE false;
+using std::vector;
+
+enum {
+    AutoStateDone=1,
+    AutoStateJump=2,//active
+    AutoStateWait=3//waiting
+};
+
+typedef struct Sautodata_{
+    Sautodata_(int id=0, int state=AutoStateWait) : m_id(id), m_state(state){}
+    int m_id;
+    int m_state;
+}Sautodata;
+
+class Rautoprogressitem : public QWidget{
+  Q_OBJECT
+public:
+    explicit Rautoprogressitem(QWidget *parent = nullptr);
+    ~Rautoprogressitem(){}
+    void set_data(int id, const QString &pgitem, const QString &model, const QString &percent, int state);
+    void refresh_state_btn();
+    inline void set_state(int state);
+    inline int get_id();
+private slots:
+    void slot_jump();
+private:
+    void create_ui();
+    void create_connections();
+    void set_label();
+    void set_state_btn();
+
+private:
+    int m_id;
+    int m_state;
+    QString m_pgitem;
+    QString m_model;
+    QString m_percent;
+    QLabel *m_pg_lb;
+    QLabel *m_model_lb;
+    QPushButton *m_state_btn;
+};
 
 class Rautoprogress : public QWidget
 {
@@ -24,63 +63,34 @@ public:
     explicit Rautoprogress(QWidget *parent = nullptr);
     ~Rautoprogress(){}
 
-    void init();
-    void initRecord();
     static void test_autoprogress();
-//    void updateRecord();
-//    void updateTitleWidget();
-//    void refreshRecord(int &start_index, int &count, int move_ = 0);
-//    auto transDate(const std_msgs::Time &time)->QString;
-//    auto transCleanConfig(int model_id)->QString;
-//    auto transTime(float time)->QString;
+    void resume(int);
+    void set_item_state(vector<Sautodata*> &rhs);
 
-signals:
-    //void recordToMain();
-    //void recordToRDescribe(const vector<roborock_app::CleanRecord> &, int);
-
-//public slots:
-//    void reloaded();
-//    void selectRefresh();
-//    void clickSelectBtn(QWidget *btn);
-//    void showDetail(int);
-//    void showMain();
-
-protected:
-//    auto event(QEvent*)->bool;
 private:
+    void create_ui();
+    void create_connections();
+    void init();
     void add_items();
+    void set_scrollpos(int k);
+    void clear_items();
+
+public:
+    QVBoxLayout *m_vlayout;
+
+
 private:
-    QWidget *title_widget;
-    QWidget *total_widget;
-    QWidget *list_widget;
-    QLabel *title_label;
-    QLabel *total_clean_area;
-    QLabel *title_total_area;
-    QLabel *total_clean_duration;
-    QLabel *title_total_duration;
-    QLabel *total_clean_times;
-    QLabel *title_total_times;
-    QWidget *clean_record_item;
-    QLabel *clean_area_name;
-    QLabel *clean_date;
-    QLabel *clean_model;
-    QLabel *clean_area;
-    QLabel *clean_time;
-    QPushButton *detail_btn;
-    QPushButton *select_delete_btn;
-    QPushButton *select_btn;
-    QPushButton *delete_btn;
-    MScrollArea *scroll_area;
-    QVBoxLayout *vLayout;
-    QPushButton *back_btn;
+    QWidget *m_wd;
+    QWidget *m_down_wd;
+    QWidget *m_total_widget;
+    QWidget *m_list_widget;
+    QPushButton *m_task_btn;
+    QPushButton *m_end_btn;
+    MScrollArea *m_scroll_area;
 
-    QWidget *m_rwd;
-
-
-    int start_index;
-    int count;
-    bool select_state;
-
-    QList<QWidget*>  total_item;
+    Rautoprogressitem *m_pgitem;
+    QList<QWidget*> m_total_items;
+    QScrollBar *m_scrollbar_y;
+    int m_item_size;
 };
 

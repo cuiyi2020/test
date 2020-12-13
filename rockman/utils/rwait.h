@@ -33,6 +33,7 @@ public:
                 t.join();
                 ok = true;
         });
+        qDebug()<<"wait function"<<(void*)&f;
         while(true){
             if(ok)
                 break;
@@ -40,6 +41,7 @@ public:
             usleep(50*1000);
         }
         t2.join();
+        qDebug()<<"function end"<<(void*)&f;
         m_wait->hide();
     }
 
